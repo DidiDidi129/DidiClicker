@@ -1,11 +1,4 @@
-//
-//  ShopView.swift
-//  DidiClicker
-//
-//  Created by Didi on 11/24/24.
-//
 import SwiftUI
-import SwiftUICore
 
 struct MainView: View {
     @Binding var Didi: Int
@@ -14,6 +7,8 @@ struct MainView: View {
     @Binding var Butler: Int
     @Binding var Plane: Int
     @Binding var dpc: Int
+    @State private var timer: Timer? = nil
+
     var body: some View {
         VStack {
             Text("You currently have:")
@@ -24,8 +19,8 @@ struct MainView: View {
                 .font(.system(size: 36))
             Spacer()
             Button(action: {
-                dpc = Slave * 10 + Office * 100 + Butler * 10000 + Plane * 100000 + 1000000
-                Didi += dpc
+                let manualAdd = max(1, dpc / 10) // 1/10th of dpc, minimum of 1
+                Didi += manualAdd
             }) {
                 HStack {
                     Text("Click Me!")
@@ -41,11 +36,38 @@ struct MainView: View {
                         .padding()
                 }
             }
-            
+        }
+        .onAppear {
+            calculateDPC()
+            startTimer()
+        }
+        .onDisappear {
+            stopTimer()
         }
     }
-}
 
+    private func calculateDPC() {
+        dpc = Slave * 2 + Office * 10 + Butler * 1000 + Plane * 10000
+        if dpc == 0 {
+            dpc = 1
+        }
+    }
+
+    private func startTimer() {
+        stopTimer() // Stop any existing timer to avoid duplicates
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            if (Slave < 1) {
+                stopTimer()
+            }
+            Didi += dpc
+        }
+    }
+
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+}
 
 #Preview {
     ContentView()

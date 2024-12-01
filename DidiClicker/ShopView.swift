@@ -54,8 +54,8 @@ struct ShopView: View {
                         
                     }
                     else {
-                        Office += 100000
-                        Didi -= 100
+                        Office += 1
+                        Didi -= 100000
                     }
                 }) {
                     Text("Burger Plane")

@@ -26,7 +26,6 @@ struct DebugView: View {
                 Button(action: {
                     
                 }) {
-                    HStack {
                         Text("Click Me!")
                             .foregroundColor(Color.white)
                             .fixedSize(horizontal: false, vertical: true)
@@ -39,7 +38,11 @@ struct DebugView: View {
                             )
                             .padding()
                         Button(action: {
-                            Didi = 1
+                            Didi = 0
+                            Office = 0
+                            Butler = 0
+                            Plane = 0
+                            Slave = 0
                         }) {
                             HStack {
                                 Text("Reset Me!")
@@ -60,7 +63,6 @@ struct DebugView: View {
             }
         }
     }
-}
     #Preview {
         ContentView()
     }

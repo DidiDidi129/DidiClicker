@@ -20,7 +20,7 @@ struct ContentView: View {
         VStack {
             
             
-            Image(systemName: "hand.rays.fill")
+            Image(systemName: "rectangle.and.hand.point.up.left")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("DidiCicker")
@@ -30,7 +30,7 @@ struct ContentView: View {
         TabView {
             MainView(Didi: $didi, Slave: $slave, Office: $office, Butler: $butler, Plane: $plane, dpc: $dpc)
                 .tabItem {
-                    Label("Main", systemImage: "hand.rays.fill")
+                    Label("Main", systemImage: "rectangle.and.hand.point.up.left")
                 }
             ShopView(Didi: $didi, Slave: $slave, Office: $office, Butler: $butler, Plane: $plane)
                 .tabItem {
