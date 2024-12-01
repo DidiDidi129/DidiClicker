@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @AppStorage("Didi") var didi: Int = 0
+    @AppStorage("Slave") var slave: Int = 0
+    @AppStorage("Office") var office: Int = 0
+    @AppStorage("Butler") var butler: Int = 0
+    @AppStorage("plane") var plane: Int = 0
+    @State var dpc: Int = 1
 
     var body: some View {
-        @AppStorage("Didi") var didi: Int = 1
-        @AppStorage("EddieSlave") var slave: Int = 0
-        @AppStorage("Office") var office: Int = 0
-        @AppStorage("Butler") var butler: Int = 0
-        @AppStorage("plane") var plane: Int = 0
+        
         VStack {
             
             
@@ -27,17 +28,24 @@ struct ContentView: View {
         .padding()
         Spacer()
         TabView {
-            Tab("Main", systemImage: "hand.rays.fill") {
-                MainView()
-            }
-            Tab("Shop", systemImage: "bag") {
-                ShopView(Didi: $didi)
-            }
+            MainView(Didi: $didi, Slave: $slave, Office: $office, Butler: $butler, Plane: $plane, dpc: $dpc)
+                .tabItem {
+                    Label("Main", systemImage: "hand.rays.fill")
+                }
+            ShopView(Didi: $didi, Slave: $slave, Office: $office, Butler: $butler, Plane: $plane)
+                .tabItem {
+                    Label("Shop", systemImage: "bag")
+                }
 
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+            DebugView(Didi: $didi, Slave: $slave, Office: $office, Butler: $butler, Plane: $plane)
+                .tabItem {
+                    Label("Debug", systemImage: "gear")
+                }
 
-            Tab("Settings", systemImage: "gear") {
-                SettingsView()
-            }
         }
     }
 }
