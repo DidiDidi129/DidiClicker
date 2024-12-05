@@ -8,13 +8,21 @@ struct MainView: View {
     @Binding var Plane: Int
     @Binding var dpc: Int
     @State private var timer: Timer? = nil
+    @State private var incrementPerMillisecond: Double = 0.0
+    @State private var partialDidi: Double = 0.0 // Tracks fractional Didis
 
     var body: some View {
         VStack {
             Text("You currently have:")
                 .bold()
                 .font(.system(size: 36))
-            Text("\(Didi) Didi's")
+            Text("\(Didi)")
+                .bold()
+                .font(.system(size: 36))
+            Text("Didi Per Second")
+                .bold()
+                .font(.system(size: 36))
+            Text("\(dpc)")
                 .bold()
                 .font(.system(size: 36))
             Spacer()
@@ -47,19 +55,20 @@ struct MainView: View {
     }
 
     private func calculateDPC() {
-        dpc = Slave * 2 + Office * 10 + Butler * 1000 + Plane * 10000
+        dpc = Slave + Office * 100 + Butler * 10000 + Plane * 1000000
         if dpc == 0 {
             dpc = 1
         }
+        incrementPerMillisecond = Double(dpc) / 1000.0
     }
 
     private func startTimer() {
         stopTimer() // Stop any existing timer to avoid duplicates
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if (Slave < 1) {
-                stopTimer()
-            }
-            Didi += dpc
+        timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true) { _ in
+            partialDidi += incrementPerMillisecond
+            let fullDidi = Int(partialDidi) // Extract full Didis
+            partialDidi -= Double(fullDidi) // Retain fractional part
+            Didi += fullDidi
         }
     }
 

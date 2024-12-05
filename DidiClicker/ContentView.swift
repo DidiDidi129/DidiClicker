@@ -24,6 +24,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("DidiCicker")
+            
         }
         .padding()
         Spacer()
@@ -49,6 +50,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()

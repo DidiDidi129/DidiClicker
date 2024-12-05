@@ -12,6 +12,21 @@ struct ShopView: View {
     @Binding var Office: Int
     @Binding var Butler: Int
     @Binding var Plane: Int
+    struct ContentView: View {
+        @StateObject private var timerManager = TimerManager()
+
+        var body: some View {
+            MainView(
+                Didi: $timerManager.Didi,
+                Slave: $timerManager.Slave,
+                Office: $timerManager.Office,
+                Butler: $timerManager.Butler,
+                Plane: $timerManager.Plane,
+                dpc: $timerManager.dpc
+            )
+        }
+    }
+
     var body: some View {
         VStack {
             Text("You have \(Didi) Didi's available to spend")
